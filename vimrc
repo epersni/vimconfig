@@ -64,6 +64,9 @@ filetype indent plugin on
 "autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>81v.\+', -1
 
 
+" Disable F1 help
+nmap <F1> :echo<CR>
+imap <F1> <C-o>:echo<CR>
 " Go to tab by number
 noremap <F1> 1gt
 noremap <F2> 2gt
