@@ -139,3 +139,15 @@ nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.
 nmap <F12> :Explore<CR>
 nmap <F9> <ESC>:ls<CR>
 
+" File explorer settings
+" =============================================================================
+" hide ./
+let g:netrw_list_hide = '^\./$' 
+" normal sort direction
+let g:netrw_sort_direction = "normal"
+let g:netrw_sort_by = "name"
+" ignore casing
+let g:netrw_sort_options = "i"
+" ls style of listings (with file size etc.)
+let g:netrw_liststyle = 1
+let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=,\.[a-np-z]$,Makefile,makefile,SConstruct,SConscript,*,\.o$,\.obj$,	\.info$,\.swp$,\.bak$,\~$'
