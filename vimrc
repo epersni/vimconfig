@@ -133,11 +133,12 @@ nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
 " auto update csope
+nmap <F9> <ESC>:ls<CR>
+map <F10> :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>.
 nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
   \:!cscope -b -i cscope.files -f cscope.out<CR>
   \:cs kill -1<CR>:cs add cscope.out<CR>
 nmap <F12> :Explore<CR>
-nmap <F9> <ESC>:ls<CR>
 
 " File explorer settings
 " =============================================================================
