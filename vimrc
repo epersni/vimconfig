@@ -132,6 +132,9 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
+" Search for highlighted text under cursor
+vnoremap // y/\V<C-R>"<CR>
+
 " auto update csope
 nmap <F9> <ESC>:ls<CR>
 map <F10> :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>.
@@ -152,3 +155,5 @@ let g:netrw_sort_options = "i"
 " ls style of listings (with file size etc.)
 let g:netrw_liststyle = 1
 let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=,\.[a-np-z]$,Makefile,makefile,SConstruct,SConscript,*,\.o$,\.obj$,	\.info$,\.swp$,\.bak$,\~$'
+
+
