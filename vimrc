@@ -36,8 +36,10 @@ syntax enable
   " |fold-marker|	marker	    Markers are used to specify folds.
   " |fold-syntax|	syntax	    Syntax highlighting items specify folds.
   " |fold-diff|	diff	    Fold text that is not changed.
-set foldmethod=manual
-set foldlevel=1
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 "==============================================================================
 " Files Opening Related
 "==============================================================================
