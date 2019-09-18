@@ -2,8 +2,8 @@
 
 ln -snf ${PWD}/vimrc ${HOME}/.vimrc
 
-if ! [ -d ${HOME}/.vim/plugin ];then
-  mkdir -p ${HOME}/.vim/plugin
+if ! [ -d ${HOME}/.vim/autoload ];then
+  mkdir -p ${HOME}/.vim/autoload
 fi
 
-ln -snf ${PWD}/plugin/* ${HOME}/.vim/plugin
+ln -snf ${PWD}/autoload/* ${HOME}/.vim/autoload

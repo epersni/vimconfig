@@ -1,72 +1,84 @@
-set wildmode=longest,list
-set wildmenu
-set ruler
-set cc=80
-set backspace=2
-set number
-set ignorecase
-set hlsearch
-set showmatch
-set ttyfast "fast terminal
-set lazyredraw "to avoid scrolling problems
-syntax enable
-
-" GIT commit help
+call plug#begin('~/.vim/plugged')
+Plug 'airblade/vim-gitgutter'
+Plug 'morhetz/gruvbox'
+Plug 'yggdroot/indentline'
+Plug 'tpope/vim-fugitive'
+call plug#end()
+"==============================================================================
+" TODO:
+"==============================================================================
+" - when coding, I want to warn if tabs are used
+" - when coding, I want to warn if trailing whitespace is in the file
+" - I want to be able to have local project settings 
+" - I want to have a custom sheet sheet quickly available
+" - Static code analysis wit ALE? plugin
+" - Fuzzy file finder FZF
+"==============================================================================
+" Coding Related
+"==============================================================================
+" Add rule at column 80
+set colorcolumn=80
+" Enable ruler the right side of the status line at the bottom of the window
+set ruler 
+set rulerformat=%l\:%c
+" Specific ruler for when writing git commits
 au FileType gitcommit set cc=72
-
-"colors delek
-"colorscheme darkblue
-"set background=dark
-
-" disable visual bell
-set visualbell
-set t_vb=
-
-" Use spaces instead of tabs
-set expandtab
-
+"Print the line number in front of each line
+set number
+" When a bracket is inserted, briefly jump to the matching one
+set showmatch
+" Syntax highlighting
+syntax enable
+" The kind of folding used for the current window.  Possible values:
+  " |fold-manual|	manual	    Folds are created manually.
+  " |fold-indent|	indent	    Lines with equal indent form a fold.
+  " |fold-expr|	expr	    'foldexpr' gives the fold level of a line.
+  " |fold-marker|	marker	    Markers are used to specify folds.
+  " |fold-syntax|	syntax	    Syntax highlighting items specify folds.
+  " |fold-diff|	diff	    Fold text that is not changed.
+set foldmethod=manual
+set foldlevel=1
+"==============================================================================
+" Files Opening Related
+"==============================================================================
+" Tab completion opens nice dialog
+set wildmenu
+"	Complete longest common string, then list alternatives
+set wildmode=longest,list
+" A buffer is unloaded when it is abandoned
+set hidden
+"==============================================================================
+"" Text Editing Related
+"==============================================================================
+" Make sure Plug 'morhetz/gruvbox' is installed
+colorscheme gruvbox
+" Allow backspacing over: autoindent, line breaks, start of insert
+" same as ":set backspace=indent,eol,start" but backwards compatible with 
+" previous vim versions
+set backspace=2
+" Do not create swapfile for the buffer
 set noswapfile
+" Do not create backup before overwriting a file
 set nobackup
-
-"indent xml files, use gg=G
-"set equalprg=xmllint\ --format\ -
-
-" Be smart when using tabs ;)
+" a <Tab> in front of a line inserts blanks according to 'shiftwidth'
+" What gets inserted (a <Tab> or spaces) depends on the 'expandtab' option.
 set smarttab
+" Number of spaces to use for each step of (auto)indent
 set shiftwidth=2
-set tabstop=2
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-" Always show the status line
-set laststatus=2
-
-" Enable mouse support in console
-set mouse=a
-
-filetype indent plugin on
-
-" Remove any trailing whitespace that is in the file
-"autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
-" highlight spaces
-"highlight ExtraWhitespace ctermbg=red guibg=red
-"match ExtraWhitespace /\s\+$/
-"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-"autocmd InsertEnter * call clearmatches() "match ExtraWhitespace /\s\+\%#\@<!$/
-"autocmd InsertLeave * match ExtraWhitespace /\s\+$"/
-"autocmd BufWinLeave * call clearmatches()
-
-"autocmd BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
-"autocmd InsertLeave * let w:m2=matchadd('ErrorMsg', '\%>81v.\+', -1)
-"autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>81v.\+', -1
-
-
-" Disable F1 help
-nmap <F1> :echo<CR>
-imap <F1> <C-o>:echo<CR>
+" Number of spaces that a <Tab> in the file counts for
+set tabstop=8
+" Use spaces instead of tabs (note: disabled when 'paste' option is set)
+set expandtab
+" Copy indent from current line when starting a new line
+set autoindent 
+" Do smart autoindenting when starting a new line
+set smartindent
+" When on, lines longer than the width of the window will wrap and displaying 
+" continues on the next line
+set wrap
+"==============================================================================
+" Key Bindings
+"==============================================================================
 " Go to tab by number
 noremap <F1> 1gt
 noremap <F2> 2gt
@@ -77,8 +89,73 @@ noremap <F6> 6gt
 noremap <F7> 7gt
 noremap <F8> 8gt
 
+"Better window navigation
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" Switch betten c/c++ header files and sources
+map <F11> :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>.
+
+" Open the file explorer
+nmap <F12> :Explore<CR>
+
+"==============================================================================
+" File explorer settings (settings for :explore)
+"==============================================================================
+" hide ./
+let g:netrw_list_hide = '^\./$' 
+" normal sort direction
+let g:netrw_sort_direction = "normal"
+let g:netrw_sort_by = "name"
+" ignore casing
+let g:netrw_sort_options = "i"
+" ls style of listings (with file size etc.)
+let g:netrw_liststyle = 1
+let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=,\.[a-np-z]$,Makefile,makefile,SConstruct,SConscript,*,\.o$,\.obj$,	\.info$,\.swp$,\.bak$,\~$'
+
+"==============================================================================
+" Text Editor Configuration // TODO: maybe scrolling?
+"==============================================================================
+" More characters will be sent to the screen for redrawing
+set ttyfast 
+" When this option is set, the screen will not be redrawn while executing 
+" macros, registers and other commands that have not been	typed
+set lazyredraw 
+" Use a visual bell instead of beeping.  The terminal code to display the visual
+" bell is given with 't_vb'. Disable both beep and flash
+set visualbell
+set t_vb=
+" The value of this option influences when the last window will have a
+" status line:
+" 	0: never
+" 	1: only if there are at least two windows
+" 	2: always
+set laststatus=2
+" The mouse can be enabled for different modes:
+" 	n	Normal mode and Terminal modes
+" 	v	Visual mode
+" 	i	Insert mode
+" 	c	Command-line mode
+" 	h	all previous modes when editing a help file
+" 	a	all previous modes
+" 	r	for |hit-enter| and |more-prompt| prompt
+set mouse=a
+"
+filetype indent plugin on
+
+"==============================================================================
+" Search Related
+"==============================================================================
+" Ignore case in search patterns
+set ignorecase
+" When there is a previous search pattern, highlight all its matches
+set hlsearch
+
+"==============================================================================
 " Rename tabs to show tab number.
-" (Based on http://stackoverflow.com/questions/5927952/whats-implementation-of-vims-default-tabline-function)
+"==============================================================================
 if exists("+showtabline")
     function! MyTabLine()
         let s = ''
@@ -122,33 +199,3 @@ if exists("+showtabline")
     set showtabline=1
     highlight link TabNum Special
 endif
-
-"Better window navigation
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
-
-" auto update csope
-nmap <F9> <ESC>:ls<CR>
-map <F10> :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>.
-nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-  \:!cscope -b -i cscope.files -f cscope.out<CR>
-  \:cs kill -1<CR>:cs add cscope.out<CR>
-nmap <F12> :Explore<CR>
-
-" File explorer settings
-" =============================================================================
-" hide ./
-let g:netrw_list_hide = '^\./$' 
-" normal sort direction
-let g:netrw_sort_direction = "normal"
-let g:netrw_sort_by = "name"
-" ignore casing
-let g:netrw_sort_options = "i"
-" ls style of listings (with file size etc.)
-let g:netrw_liststyle = 1
-let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=,\.[a-np-z]$,Makefile,makefile,SConstruct,SConscript,*,\.o$,\.obj$,	\.info$,\.swp$,\.bak$,\~$'
