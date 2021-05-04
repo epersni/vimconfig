@@ -5,7 +5,8 @@ Plug 'yggdroot/indentline'
 Plug 'tpope/vim-fugitive'
 call plug#end()
 "==============================================================================
-" TODO:
+" Intro:
+" call ':PlugInstall' to install plugins
 "==============================================================================
 " - when coding, I want to warn if tabs are used
 " - when coding, I want to warn if trailing whitespace is in the file
@@ -53,6 +54,7 @@ set hidden
 "" Text Editing Related
 "==============================================================================
 " Make sure Plug 'morhetz/gruvbox' is installed
+set bg=dark
 colorscheme gruvbox
 " Allow backspacing over: autoindent, line breaks, start of insert
 " same as ":set backspace=indent,eol,start" but backwards compatible with 
