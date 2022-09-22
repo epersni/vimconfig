@@ -1,8 +1,9 @@
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'yggdroot/indentline'
 Plug 'tpope/vim-fugitive'
+Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 "==============================================================================
 " Intro:
@@ -10,7 +11,7 @@ call plug#end()
 "==============================================================================
 " - when coding, I want to warn if tabs are used
 " - when coding, I want to warn if trailing whitespace is in the file
-" - I want to be able to have local project settings 
+" - I want to be able to have local project settings
 " - I want to have a custom sheet sheet quickly available
 " - Static code analysis wit ALE? plugin
 " - Fuzzy file finder FZF
@@ -20,7 +21,7 @@ call plug#end()
 " Add rule at column 80
 set colorcolumn=80
 " Enable ruler the right side of the status line at the bottom of the window
-set ruler 
+set ruler
 set rulerformat=%l\:%c
 " Specific ruler for when writing git commits
 au FileType gitcommit set cc=72
@@ -54,10 +55,10 @@ set hidden
 "" Text Editing Related
 "==============================================================================
 " Make sure Plug 'morhetz/gruvbox' is installed
-set bg=dark
-colorscheme gruvbox
+"set bg=dark
+"colorscheme gruvbox
 " Allow backspacing over: autoindent, line breaks, start of insert
-" same as ":set backspace=indent,eol,start" but backwards compatible with 
+" same as ":set backspace=indent,eol,start" but backwards compatible with
 " previous vim versions
 set backspace=2
 " Do not create swapfile for the buffer
@@ -74,10 +75,10 @@ set tabstop=8
 " Use spaces instead of tabs (note: disabled when 'paste' option is set)
 set expandtab
 " Copy indent from current line when starting a new line
-set autoindent 
+set autoindent
 " Do smart autoindenting when starting a new line
 set smartindent
-" When on, lines longer than the width of the window will wrap and displaying 
+" When on, lines longer than the width of the window will wrap and displaying
 " continues on the next line
 set wrap
 "==============================================================================
@@ -109,7 +110,7 @@ nmap <F12> :Explore<CR>
 " File explorer settings (settings for :explore)
 "==============================================================================
 " hide ./
-let g:netrw_list_hide = '^\./$' 
+let g:netrw_list_hide = '^\./$'
 " normal sort direction
 let g:netrw_sort_direction = "normal"
 let g:netrw_sort_by = "name"
@@ -123,10 +124,10 @@ let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=,\.[a-np-z]$,Makefile,make
 " Text Editor Configuration // TODO: maybe scrolling?
 "==============================================================================
 " More characters will be sent to the screen for redrawing
-set ttyfast 
-" When this option is set, the screen will not be redrawn while executing 
+set ttyfast
+" When this option is set, the screen will not be redrawn while executing
 " macros, registers and other commands that have not been	typed
-set lazyredraw 
+set lazyredraw
 " Use a visual bell instead of beeping.  The terminal code to display the visual
 " bell is given with 't_vb'. Disable both beep and flash
 set visualbell
